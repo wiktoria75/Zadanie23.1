@@ -64,11 +64,12 @@ CREATE TABLE pracownik (
 
 ALTER TABLE pracownik
     ADD position_id INT,
+
         ADD FOREIGN KEY (position_id) REFERENCES stanowisko (pos_no);
 
-ALTER TABLE adres
-    ADD emp_id INT,
-        ADD FOREIGN KEY (emp_id) REFERENCES pracownik (emp_no);
+ALTER TABLE pracownik
+    ADD addres_id INT,
+    ADD FOREIGN KEY (adress_id) REFERENCES adres (adr_no);
 
 -- 12)Dodaje dane testowe (w taki sposób, aby powstały pomiędzy nimi sensowne powiązania)
 INSERT INTO stanowisko
@@ -79,29 +80,29 @@ VALUES
     ('Menager', '', '15000');
 
 INSERT INTO pracownik
-(name, surname, position_id)
+(name, surname, position_id, addres_id)
 VALUES
-    ('Marcin','Marciniuk','1'),
-    ('Adam','Adamczyk','2'),
-    ('Tomasz','Tomaszewski','2'),
-    ('Piotr','Piotrowski','2'),
-    ('Michał','Michalski','3');
+    ('Marcin','Marciniuk','1', '2'),
+    ('Adam','Adamczyk','2', '1'),
+    ('Tomasz','Tomaszewski','2', '2'),
+    ('Piotr','Piotrowski','2', '3'),
+    ('Michał','Michalski','3', '5');
 
 INSERT INTO adres
-(emp_id, street, zip_code, city)
+(street, zip_code, city)
 VALUES
-    ('1', 'Grochowska 4/3', '02104', 'Warszawa'),
-    ('2', 'Czerniakowska 45/18', '03485', 'Warszawa'),
-    ('3', 'Grójecka 23/8', '01249', 'Warszawa'),
-    ('4', 'Niepodległości 3/5', '02365', 'Warszawa'),
-    ('5', 'Książęca 8/31', '03822', 'Warszawa');
+    ('Grochowska 4/3', '02104', 'Warszawa'),
+    ('Czerniakowska 45/18', '03485', 'Warszawa'),
+    ('Grójecka 23/8', '01249', 'Warszawa'),
+    ('Niepodległości 3/5', '02365', 'Warszawa'),
+    ('Książęca 8/31', '03822', 'Warszawa');
 
 -- 13) Pobiera pełne informacje o pracowniku (imię, nazwisko, adres, stanowisko)
 SELECT
     name, surname, position, salary, street, zip_code
 FROM pracownik p
          JOIN stanowisko ON p.position_id = stanowisko.pos_no
-         JOIN adres ON p.emp_no = adres.emp_id;
+         JOIN adres ON p.addres_id = adres.adr_no;
 
 
 -- 14) Oblicza sumę wypłat dla wszystkich pracowników w firmie
@@ -114,5 +115,5 @@ FROM
 SELECT
     name, surname, street, zip_code
 FROM pracownik p
-         JOIN adres ON p.emp_no = adres.emp_id
+         JOIN adres ON p.addres_id = adres.adr_no
 WHERE zip_code = '01249';
