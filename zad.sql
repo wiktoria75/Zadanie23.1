@@ -64,12 +64,11 @@ CREATE TABLE pracownik (
 
 ALTER TABLE pracownik
     ADD position_id INT,
-
-        ADD FOREIGN KEY (position_id) REFERENCES stanowisko (pos_no);
+	ADD FOREIGN KEY (position_id) REFERENCES stanowisko (pos_no);
 
 ALTER TABLE pracownik
     ADD addres_id INT,
-    ADD FOREIGN KEY (adress_id) REFERENCES adres (adr_no);
+    ADD FOREIGN KEY (addres_id) REFERENCES adres (adr_no);
 
 -- 12)Dodaje dane testowe (w taki sposób, aby powstały pomiędzy nimi sensowne powiązania)
 INSERT INTO stanowisko
@@ -79,15 +78,6 @@ VALUES
     ('Engineer','', '13000'),
     ('Menager', '', '15000');
 
-INSERT INTO pracownik
-(name, surname, position_id, addres_id)
-VALUES
-    ('Marcin','Marciniuk','1', '2'),
-    ('Adam','Adamczyk','2', '1'),
-    ('Tomasz','Tomaszewski','2', '2'),
-    ('Piotr','Piotrowski','2', '3'),
-    ('Michał','Michalski','3', '5');
-
 INSERT INTO adres
 (street, zip_code, city)
 VALUES
@@ -96,6 +86,15 @@ VALUES
     ('Grójecka 23/8', '01249', 'Warszawa'),
     ('Niepodległości 3/5', '02365', 'Warszawa'),
     ('Książęca 8/31', '03822', 'Warszawa');
+
+INSERT INTO pracownik
+(name, surname, position_id, addres_id)
+VALUES
+    ('Marcin','Marciniuk','1', '2'),
+    ('Adam','Adamczyk','2', '1'),
+    ('Tomasz','Tomaszewski','2', '2'),
+    ('Piotr','Piotrowski','2', '3'),
+    ('Michał','Michalski','3', '5');
 
 -- 13) Pobiera pełne informacje o pracowniku (imię, nazwisko, adres, stanowisko)
 SELECT
